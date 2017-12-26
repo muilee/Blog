@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="content container">
+ 	<div class="row">
+ 		<div class="col-md-8">
+ 			{% for post in posts %}
+ 			<div class="post">
+ 				<h1><a href="/blog/{{post.id}}">{{ post.title }}</a></h1>
+ 				<div class="date">
+ 					<p>release time: {{ post.created_date }}</p>
+ 				</div>
+ 				<p>{{ post.text| linebreaks }}</p>
+ 				<hr>
+ 			</div>
+ 			{% endfor %}
+ 		</div>
+ 	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+	<h4>release new article</h4>
+	</div>
+	<div class="col-md-8">
+		<form action="/blog/add_record" method="post" accept-charset="utf-8">
+			{% csrf_token %}
+			<table>
+				{{post_form.as_table}}
+			</table>
+			<input type="submit" name="add_record" value="sumit">
+		</form>
+	</div>
+</div> 
+{% endblock %}
